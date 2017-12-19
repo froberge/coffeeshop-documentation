@@ -1,4 +1,4 @@
-INSERT INTO USERS (ID,NAME, GENDER, BIRTHDATE, EMAILADR, PASSWORD, CREATE_DATE) VALUES
-  (nextval('users_seq'), 'test', 'F', to_date('2000-09-01', 'YYYY-MM-DD'), 'test@example.com', 'test', current_timestamp ),
-  (2, 'users_seq', 'F', to_date('1996-01-29', 'YYYY-MM-DD'), 'charlotte@example.com', 'secret', current_timestamp),
-  (3, 'users_SEQ', 'M', to_date('1990-07-29', 'YYYY-MM-DD'), 'olivier@example.com', 'secret',current_timestamp);
+INSERT INTO USERS (ID, FIRST_NAME, LAST_NAME, GENDER, BIRTHDATE, EMAILADR, PASSWORD, CREATE_DATE) VALUES
+  (nextval('users_seq'), 'Admin', 'Admin', 'M', current_timestamp, 'admin@coffeshop.com', 'pwd001',current_timestamp ),
+  (nextval('users_seq'), 'Charlotte', 'Roberge', 'F', to_date('1996-01-29', 'YYYY-MM-DD'), 'charlotte@coffeshop.com', 'secret', 'B', current_timestamp),
+  (nextval('users_seq'), 'Olivier', 'Roberge', 'M', to_date('1990-07-29', 'YYYY-MM-DD'), 'olivier@coffeeshop.com', 'secret', 'B', current_timestamp);
