@@ -31,7 +31,7 @@ public class DatabaseEndPoint {
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
     @Path( "/select" )
-    public Response findAUser(UserJson user) {
+    public Response select(UserJson user) {
         if (user != null) {
         	System.out.println( "user not empty " + user.toString() );
             User u = DatabaseService.getInstance().findAUser(user.getEmailAdr(), user.getPassword());
