@@ -1,8 +1,4 @@
-package com.thecat.databaseApp.endPoint;
-
-import com.thecat.databaseApp.entities.User;
-import com.thecat.databaseApp.entities.UserJson;
-import com.thecat.databaseApp.services.impl.DatabaseService;
+package com.thecat.databaseService.endPoint;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -11,13 +7,16 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.thecat.databaseService.entities.User;
+import com.thecat.databaseService.entities.UserJson;
+import com.thecat.databaseService.services.impl.DatabaseService;
+
 /**
- * Service use to Login into the application
+ * Service use to manage interaction with the database
  *
  * @author froberge
- * @since Oct 2016
+ * @since Oct 2017
  */
-@Path("/login")
 public class DatabaseEndPoint {
 
 
@@ -30,7 +29,8 @@ public class DatabaseEndPoint {
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public Response loginPost(UserJson user) {
+    @Path( "/findAUser" )
+    public Response findAUser(UserJson user) {
         if (user != null) {
             User u = DatabaseService.getInstance().findAUser(user.getEmailAdr(), user.getPassword());
 

@@ -1,13 +1,13 @@
 /**
  * 
  */
-package com.thecat.databaseApp.services.impl;
+package com.thecat.databaseService.services.impl;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.thecat.databaseApp.entities.User;
+import com.thecat.databaseService.entities.User;
 
 /**
  * Implement the Login Service

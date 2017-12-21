@@ -3,10 +3,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-    <display-name>Login Service</display-name>
+    <display-name>Database Service</display-name>
     <filter>
         <filter-name>CORS Filter</filter-name>
-        <filter-class>com.thecat.loginApp.filters.CORSFilter</filter-class>
+        <filter-class>com.thecat.databaseService.filters.CORSFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>CORS Filter</filter-name>

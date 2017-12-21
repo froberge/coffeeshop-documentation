@@ -1,4 +1,4 @@
-package com.thecat.databaseApp.filters;
+package com.thecat.databaseService.filters;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;

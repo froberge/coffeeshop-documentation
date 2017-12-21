@@ -1,4 +1,4 @@
-package com.thecat.databaseApp.entities;
+package com.thecat.databaseService.entities;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
