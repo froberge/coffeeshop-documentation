@@ -29,7 +29,7 @@ public class DatabaseEndPoint {
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    @Path( "/findAUser" )
+    @Path( "/select" )
     public Response findAUser(UserJson user) {
 //        if (user != null) {
         	System.out.println( "user not empty " + user.toString() );
