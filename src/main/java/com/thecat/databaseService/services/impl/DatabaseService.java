@@ -46,9 +46,6 @@ public class DatabaseService {
 	 * @return {@link User}
 	 */
 	public User findAUser(String emailAdress, String password) {
-		
-		System.out.println( "User list " + userList.size() );
-
 		return this.userList.stream().filter( u -> ( u.getEmailAddress().equals(emailAdress)
 				&& u.getPassword().equals(password) ) ).findFirst().orElse(null);
 	}
