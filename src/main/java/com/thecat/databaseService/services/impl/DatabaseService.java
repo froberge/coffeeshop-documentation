@@ -25,6 +25,8 @@ public class DatabaseService {
 	 * Private constructor to prevent the creation of the LoginService
 	 */
 	private DatabaseService(){
+		// Initialize the userList
+		this.userList = createUserList();
 	}
 	
 	public static DatabaseService getInstance() {
@@ -44,26 +46,14 @@ public class DatabaseService {
 	 * @return {@link User}
 	 */
 	public User findAUser(String emailAdress, String password) {
+		
+		System.out.println( "User list " + userList.size() );
 
-		return listAllUser().stream().filter( u -> ( u.getEmailAddress().equals(emailAdress)
+		return this.userList.stream().filter( u -> ( u.getEmailAddress().equals(emailAdress)
 				&& u.getPassword().equals(password) ) ).findFirst().orElse(null);
 	}
 	
 	
-	/**
-	 * List all the user inside the database
-	 * 
-	 * @return {@link List}
-	 */
-	public List<User> listAllUser() {
-		
-		if (this.userList == null ) {
-			this.userList = createUserList();
-		}
-		
-		return this.userList;
-	}
-
 	/**
 	 * Create a basic list of customer.
 	 * @return {@link ArrayList}
