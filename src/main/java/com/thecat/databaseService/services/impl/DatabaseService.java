@@ -19,11 +19,12 @@ public class DatabaseService {
 
 	private static DatabaseService dbService = null;
 	
+	private List<User> userList;
+	
 	/**
 	 * Private constructor to prevent the creation of the LoginService
 	 */
 	private DatabaseService(){
-		
 	}
 	
 	public static DatabaseService getInstance() {
@@ -55,7 +56,12 @@ public class DatabaseService {
 	 * @return {@link List}
 	 */
 	public List<User> listAllUser() {
-		return createUserList();
+		
+		if (this.userList == null ) {
+			this.userList = createUserList();
+		}
+		
+		return this.userList;
 	}
 
 	/**

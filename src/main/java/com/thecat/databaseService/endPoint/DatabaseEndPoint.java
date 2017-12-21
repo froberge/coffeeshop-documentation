@@ -32,24 +32,24 @@ public class DatabaseEndPoint {
     @Produces({MediaType.APPLICATION_JSON})
     @Path( "/select" )
     public Response findAUser(UserJson user) {
-//        if (user != null) {
+        if (user != null) {
         	System.out.println( "user not empty " + user.toString() );
-//            User u = DatabaseService.getInstance().findAUser(user.getEmailAdr(), user.getPassword());
-//
-//            if (u == null) {
-//                return Response.status(Response.Status.BAD_REQUEST)
-//                        .entity("Wrong Username or Password")
-//                        .build();
-//            } else {
-//                return Response.ok()
-//                        .entity(parseResponse(u))
-//                        .build();
-//            }
-//        } else {
+            User u = DatabaseService.getInstance().findAUser(user.getEmailAdr(), user.getPassword());
+
+            if (u == null) {
+                return Response.status(Response.Status.BAD_REQUEST)
+                        .entity("Wrong Username or Password")
+                        .build();
+            } else {
+                return Response.ok()
+                        .entity(parseResponse(u))
+                        .build();
+            }
+        } else {
             return Response.status(Response.Status.NO_CONTENT)
                     .entity("No user specify")
                     .build();
-//        }
+        }
     }
 
     /**
