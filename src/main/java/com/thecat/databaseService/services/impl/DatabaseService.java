@@ -5,6 +5,7 @@ package com.thecat.databaseService.services.impl;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.thecat.databaseService.entities.User;
@@ -45,7 +46,7 @@ public class DatabaseService {
 	 * @param password {@link String}
 	 * @return {@link User}
 	 */
-	public User findAUser(String emailAdress, String password) {
+	public User selectUser(String emailAdress, String password) {
 		return this.userList.stream().filter( u -> ( u.getEmailAddress().equals(emailAdress)
 				&& u.getPassword().equals(password) ) ).findFirst().orElse(null);
 	}
@@ -56,7 +57,7 @@ public class DatabaseService {
 	 * @return {@link ArrayList}
 	 */
 	private List<User> createUserList() {
-	    List<User> list = new ArrayList<User>();
+	    List<User> list = new LinkedList<User>();
 	    list.add(
 	        new User(
 	        "test",
@@ -64,20 +65,6 @@ public class DatabaseService {
 	        LocalDate.now().minusYears(17),
 	        "test@example.com",
 	        "test"));
-	    list.add(
-	        new User(
-	        "test123",
-	        User.Gender.MALE,
-	        LocalDate.now().minusYears(30),
-	        "test@example.com",
-	        "test"));
-	    list.add(
-	        new User(
-	        "test456",
-	        User.Gender.MALE,
-	        LocalDate.now().minusYears(30),
-	        "test@example.com",
-	        "test"));	    
 	    
 	    return list;
 	}

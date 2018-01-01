@@ -33,23 +33,16 @@ public class DatabaseEndPoint {
     @Path( "/select" )
     public Response select(UserJson user) {
         if (user != null) {
-            User u = DatabaseService.getInstance().findAUser(user.getEmailAdr(), user.getPassword());
+            User u = DatabaseService.getInstance().selectUser(user.getEmailAdr(), user.getPassword());
 
             if (u == null) {
-            	System.out.println( "user not found " + user.toString() );
-                return Response.status(Response.Status.BAD_REQUEST)
-                        .entity("Wrong Username or Password")
-                        .build();
+                return Response.status(Response.Status.BAD_REQUEST).build();
             } else {
-            	System.out.println( "user found " + u.toString() );
-
                 return Response.ok()
                         .entity(parseResponse(u))
                         .build();
             }
         } else {
-        	System.out.println( "no cotent" );
-
             return Response.status(Response.Status.NO_CONTENT)
                     .entity("No user specify")
                     .build();
