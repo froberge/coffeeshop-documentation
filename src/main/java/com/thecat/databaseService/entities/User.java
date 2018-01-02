@@ -6,10 +6,10 @@ import java.time.Period;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Simple object representing a user.
+ * Simple object representing a user, use and a representation of a DB entry.
  *
  * @author froberge
- * @since Oct 25, 2016
+ * @since December 2017
  */
 @XmlRootElement
 public  class User {

@@ -11,10 +11,10 @@ import java.util.List;
 import com.thecat.databaseService.entities.User;
 
 /**
- * Implement the Login Service
+ * Implement the Database Service
  *
  * @author froberge
- * @since Oct 25, 2016
+ * @since December, 2017
  */
 public class DatabaseService {
 
@@ -53,7 +53,7 @@ public class DatabaseService {
 	
 	
 	/**
-	 * Create a basic list of customer.
+	 * Create a basic list of customer instead of using a database.
 	 * @return {@link ArrayList}
 	 */
 	private List<User> createUserList() {

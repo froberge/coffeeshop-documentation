@@ -12,20 +12,20 @@ import com.thecat.databaseService.entities.UserJson;
 import com.thecat.databaseService.services.impl.DatabaseService;
 
 /**
- * Service use to manage interaction with the database
+ * API use to manage interaction with the database
  *
  * @author froberge
- * @since Oct 2017
+ * @since December 2017
  */
 @Path("/db")
 public class DatabaseEndPoint {
 
 
     /**
-     * Endpoint responsible to login a user
+     * Endpoint responsible to Interface with a database 
      *
      * @param {@link UserJson} user
-     * @return
+     * @return {@link UserJson}
      */
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
