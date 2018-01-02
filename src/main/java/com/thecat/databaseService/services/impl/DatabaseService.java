@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.thecat.databaseService.entities.User;
+import com.thecat.databaseService.entities.UserJson;
 
 /**
  * Implement the Database Service
@@ -46,12 +47,30 @@ public class DatabaseService {
 	 * @param password {@link String}
 	 * @return {@link User}
 	 */
-	public User selectUser(String emailAdress, String password) {
-		return this.userList.stream().filter( u -> ( u.getEmailAddress().equals(emailAdress)
-				&& u.getPassword().equals(password) ) ).findFirst().orElse(null);
+	public User select(String emailAdress, String password) {
+		// Select from the user list if no database
+		return selectUserFromList(emailAdress, password);
 	}
+
+	public User selectUserFromList(String emailAdress, String password) {
+	return this.userList.stream().filter( u -> ( u.getEmailAddress().equals(emailAdress)
+			&& u.getPassword().equals(password) ) ).findFirst().orElse(null);
+	}
+	/**
+	 * Register a new user to the system
+	 * 
+	 * @param user {@link UserJson}
+	 * @return {@link Boolean}
+	 */
+	public boolean register(UserJson user) {
+		//Register from the user list if no database
+		addUserToList(user);
+		
+		return true;
+	}
+
 	
-	
+
 	/**
 	 * Create a basic list of customer instead of using a database.
 	 * @return {@link ArrayList}
@@ -68,4 +87,21 @@ public class DatabaseService {
 	    
 	    return list;
 	}
+	
+	/**
+	 * Register a given user.
+	 * 
+	 * @param users {@link UserJson}
+	 * @return 
+	 */
+	private void addUserToList(UserJson user) {
+		   this.userList.add(
+		        new User(
+		        user.getUsername(),
+		        User.Gender.valueOf(user.getGender()),
+		        LocalDate.now().minusYears(Integer.valueOf(user.getAge())),
+		        user.getEmailAdr(),
+		        user.getPassword()));
+	}
+
 }

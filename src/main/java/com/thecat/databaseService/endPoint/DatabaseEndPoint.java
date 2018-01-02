@@ -17,12 +17,11 @@ import com.thecat.databaseService.services.impl.DatabaseService;
  * @author froberge
  * @since December 2017
  */
-@Path("/db")
 public class DatabaseEndPoint {
 
 
     /**
-     * Endpoint responsible to Interface with a database 
+     * select action 
      *
      * @param {@link UserJson} user
      * @return {@link UserJson}
@@ -33,7 +32,7 @@ public class DatabaseEndPoint {
     @Path( "/select" )
     public Response select(UserJson user) {
         if (user != null) {
-            User u = DatabaseService.getInstance().selectUser(user.getEmailAdr(), user.getPassword());
+            User u = DatabaseService.getInstance().select(user.getEmailAdr(), user.getPassword());
 
             if (u == null) {
                 return Response.status(Response.Status.BAD_REQUEST).build();
@@ -49,6 +48,35 @@ public class DatabaseEndPoint {
         }
     }
 
+    /**
+     * register action 
+     *
+     * @param {@link UserJson} user
+     * @return
+     */
+    @POST
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path( "/register" )
+    public Response register(UserJson user) {
+        if (user != null) {
+            boolean b = DatabaseService.getInstance().register(user);
+
+            if (b ) {
+                return Response.ok().build();
+            } else {
+                return Response.status(Response.Status.BAD_REQUEST)
+                        .entity( "Could not Register, please try again" )
+                        .build();
+            }
+        } else {
+            return Response.status(Response.Status.NO_CONTENT)
+                    .entity("No user specify")
+                    .build();
+        }
+    }
+
+    
     /**
      * Parse the the response to a proper JSON element.
      *
