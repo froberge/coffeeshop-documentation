@@ -17,6 +17,7 @@ import com.thecat.databaseService.services.impl.DatabaseService;
  * @author froberge
  * @since December 2017
  */
+@Path("/db")
 public class DatabaseEndPoint {
 
 
