@@ -98,7 +98,7 @@ public class DatabaseService {
 		   this.userList.add(
 		        new User(
 		        user.getUsername(),
-		        User.Gender.valueOf(user.getGender()),
+		        User.Gender.valueOf(user.getGender().toUpperCase()),
 		        LocalDate.now().minusYears(Integer.valueOf(user.getAge())),
 		        user.getEmailAdr(),
 		        user.getPassword()));

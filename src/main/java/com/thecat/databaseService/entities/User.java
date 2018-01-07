@@ -15,7 +15,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 public  class User {
 
 	public enum Gender {
-        MALE, FEMALE
+        MALE,
+        FEMALE
     }
 
     private String name;
