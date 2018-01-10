@@ -53,11 +53,12 @@ public class DatabaseService {
 	}
 
 	public User selectUserFromList(String emailAdress, String password) {
-	return this.userList.stream().filter( u -> ( u.getEmailAddress().equals(emailAdress)
+		return this.userList.stream().filter( u -> ( u.getEmailAddress().equals(emailAdress)
 			&& u.getPassword().equals(password) ) ).findFirst().orElse(null);
 	}
+	
 	/**
-	 * Register a new user to the system
+	 * Add a new user for a system
 	 * 
 	 * @param user {@link UserJson}
 	 * @return {@link Boolean}

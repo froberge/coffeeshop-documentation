@@ -61,7 +61,8 @@ public class DatabaseEndPoint {
     @Path( "/register" )
     public Response register(UserJson user) {
         if (user != null) {
-            boolean b = DatabaseService.getInstance().register(user);
+            
+        	boolean b = DatabaseService.getInstance().register(user);
 
             if (b ) {
                 return Response.ok().build();
