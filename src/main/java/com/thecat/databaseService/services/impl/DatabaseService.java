@@ -4,6 +4,7 @@
 package com.thecat.databaseService.services.impl;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -96,13 +97,14 @@ public class DatabaseService {
 	 * @return 
 	 */
 	private void addUserToList(UserJson user) {
-		   this.userList.add(
-		        new User(
-		        user.getUsername(),
-		        User.Gender.valueOf(user.getGender().toUpperCase()),
-		        LocalDate.now().minusYears(Integer.valueOf(user.getAge())),
-		        user.getEmailAdr(),
-		        user.getPassword()));
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		
+		this.userList.add(
+	        new User(
+	        user.getUsername(),
+	        User.Gender.valueOf(user.getGender().toUpperCase()),
+	        LocalDate.parse(user.getAge(), formatter),
+	        user.getEmailAdr(),
+	        user.getPassword()));
 	}
-
 }
