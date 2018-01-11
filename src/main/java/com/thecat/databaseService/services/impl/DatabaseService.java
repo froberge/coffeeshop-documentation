@@ -64,6 +64,10 @@ public class DatabaseService {
 		
 		User response = selectUserFromDatabase(emailAdress, password);
 		
+		if ( response != null ) {
+			System.out.println( "return user " + response.getName() );
+		}
+		
 		return response;
 	}
 
@@ -81,6 +85,8 @@ public class DatabaseService {
 			Connection connection = getDatabaseConnection();
 
 			if ( connection != null ) {
+				System.out.println( "connection sucessful" );
+							
 				String query = "select * from USERS where emailadr = ? and password = ?";
 				PreparedStatement stmt = connection.prepareStatement(query);
 				
@@ -90,12 +96,14 @@ public class DatabaseService {
 				ResultSet rs = stmt.executeQuery();
 				
 				while (rs.next() ) {
+					System.out.println( "found user" );
 					response = new User();
 					response.setName( rs.getString( "NAME" ) );
 				}
 				
 				rs.close();
 				connection.close();
+				return response;
 			} else {
 				System.out.println( "no connection" );
 			}
