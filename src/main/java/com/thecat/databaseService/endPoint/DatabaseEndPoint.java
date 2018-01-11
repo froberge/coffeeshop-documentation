@@ -38,8 +38,11 @@ public class DatabaseEndPoint {
             if (u == null) {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             } else {
+                UserJson uj = new UserJson();
+                uj.setUsername(u.getName());
+
                 return Response.ok()
-                        .entity(parseResponse(u))
+                        .entity(uj)
                         .build();
             }
         } else {
@@ -76,23 +79,5 @@ public class DatabaseEndPoint {
                     .entity("No user specify")
                     .build();
         }
-    }
-
-    
-    /**
-     * Parse the the response to a proper JSON element.
-     *
-     * @param user {@link User}
-     * @return {@link UserJson}
-     */
-    private UserJson parseResponse(User user) {
-        UserJson uj = new UserJson();
-        
-        uj.setEmailAdr(user.getEmailAddress());
-        uj.setGender(user.getGender().name());
-        uj.setPassword(user.getPassword());
-        uj.setUsername(user.getName());
-
-        return uj;
     }
 }
