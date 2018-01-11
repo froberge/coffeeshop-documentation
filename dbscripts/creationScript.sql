@@ -5,16 +5,16 @@ CREATE SEQUENCE users_seq
  START WITH     1
  INCREMENT BY   1;
 
-CREATE TABLE USERS(
-   ID   INT              NOT NULL,
-   NAME VARCHAR (20)     NOT NULL,
-   GENDER VARCHAR (1)    NOT NULL,
-   BIRTHDATE  DATE,
-   EMAILADR  VARCHAR(50) NOT NULL,
-   PASSWORD  VARCHAR(20) NOT NULL,
-   CREATE_DATE DATE,
-   PRIMARY KEY (ID)
-);
+ CREATE TABLE USERS(
+    ID   INT               NOT NULL,
+    NAME VARCHAR(100) NOT NULL,
+    GENDER VARCHAR(6)      NOT NULL,
+    BIRTHDATE  DATE,
+    EMAILADR  VARCHAR(100)  NOT NULL,
+    PASSWORD  VARCHAR(20)  NOT NULL,
+    CREATE_DATE DATE,
+    PRIMARY KEY (ID)
+ );
 
-INSERT INTO USERS (ID, FIRST_NAME, LAST_NAME, GENDER, BIRTHDATE, EMAILADR, PASSWORD, CREATE_DATE) VALUES
-  (nextval('users_seq'), 'Admin', 'Admin', 'M', current_timestamp, 'admin@coffeshop.com', 'pwd001',current_timestamp );
+INSERT INTO USERS (ID, NAME, GENDER, BIRTHDATE, EMAILADR, PASSWORD, CREATE_DATE) VALUES
+  (nextval('users_seq'), 'System Admin','Male', current_timestamp, 'admin@coffeshop.com', 'pwd001',current_timestamp );
