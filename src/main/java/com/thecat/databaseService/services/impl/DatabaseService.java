@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 import org.apache.http.ConnectionClosedException;
 
 import com.thecat.databaseService.entities.User;
@@ -62,6 +64,7 @@ public class DatabaseService {
 		
 		User response = selectUserFromDatabase(emailAdress, password);
 		
+		System.out.println( "return user " + response.getName() );
 		return response;
 	}
 
@@ -90,6 +93,7 @@ public class DatabaseService {
 				ResultSet rs = stmt.executeQuery();
 				
 				while (rs.next() ) {
+					System.out.println( "found user" );
 					response = new User();
 					response.setName( rs.getString( "NAME" ) );
 				}
