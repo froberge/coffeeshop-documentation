@@ -127,9 +127,9 @@ public class DatabaseService {
 	 */
 	public boolean register(UserJson user) {
 		
-		insertUserInList(user);
+//		insertUserInList(user);
 
-//		insertUserInDatabase(user);
+		insertUserInDatabase(user);
 				
 		return true;
 	}
