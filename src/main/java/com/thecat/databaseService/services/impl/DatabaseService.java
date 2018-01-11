@@ -58,45 +58,62 @@ public class DatabaseService {
 	 * @return {@link User}
 	 */
 	public User select(String emailAdress, String password) {
-
-		selectUserFromDatabase();
+//		UserJson response = selectUserFromList(emailAdress, password);
 		
-		// Select from the user list if no database
-		return selectUserFromList(emailAdress, password);
+		User response = selectUserFromDatabase(emailAdress, password);
+		
+		return response;
 	}
 
 	/**
-	 * This methos select a user inside the database
+	 * Select user from the database.
+	 * 
+	 * @param emailAdress {@link String}
+	 * @param password {@link String}
+	 * @return {@link User}
 	 */
-	private void selectUserFromDatabase() {
+	private User selectUserFromDatabase(String emailAdress, String password) {
+		User response = null;
+		
 		try {		
 			Connection connection = getDatabaseConnection();
 
 			if ( connection != null ) {
 				System.out.println( "connection sucessful" );
 							
-				String sql = "select * from USERS";
-				Statement stmt = connection.createStatement();
-				ResultSet rs = stmt.executeQuery(sql);
+				String query = "select * from USERS where emailadr = ? and password = ?";
+				PreparedStatement stmt = connection.prepareStatement(query);
 				
-				System.out.println( "number of row " + rs.getRow() );
+				stmt.setString(1, emailAdress);
+				stmt.setString(2, password);
+				
+				ResultSet rs = stmt.executeQuery();
 				
 				while (rs.next() ) {
-					System.out.println( "check element name: " + rs.getString( "NAME" ) );
+					response = new User();
+					response.setName( rs.getString( "NAME" ) );
 				}
 				
 				rs.close();
 				connection.close();
-				 
 			} else {
 				System.out.println( "no connection" );
 			}
 		} catch (Exception e ) {
 			System.out.println( e );
 		}
+		
+		return response;
 	}
 
-	public User selectUserFromList(String emailAdress, String password) {
+	/**
+	 * Select user from the list
+	 * 
+	 * @param emailAdress {@link String}
+	 * @param password {@link String}
+	 * @return {@link UserJson}
+	 */
+	private User selectUserFromList(String emailAdress, String password) {
 		return this.userList.stream().filter( u -> ( u.getEmailAddress().equals(emailAdress)
 			&& u.getPassword().equals(password) ) ).findFirst().orElse(null);
 	}
@@ -109,11 +126,10 @@ public class DatabaseService {
 	 */
 	public boolean register(UserJson user) {
 		
-		insertUserInDatabase(user);
-		
-		//Register from the user list if no database
 		insertUserInList(user);
-		
+
+//		insertUserInDatabase(user);
+				
 		return true;
 	}
 
@@ -121,6 +137,7 @@ public class DatabaseService {
 
 	/**
 	 * Create a basic list of customer instead of using a database.
+	 * 
 	 * @return {@link ArrayList}
 	 */
 	private List<User> createUserList() {
@@ -137,10 +154,9 @@ public class DatabaseService {
 	}
 	
 	/**
-	 * Register a given user.
+	 * Insert a new user in the list.
 	 * 
 	 * @param users {@link UserJson}
-	 * @return 
 	 */
 	private void insertUserInList(UserJson user) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -155,7 +171,7 @@ public class DatabaseService {
 	}
 	
 	/**
-	 *  This method create a connection to the databse.
+	 *  This method create a connection to the database.
 	 *  
 	 * @return {@link Connection}
 	 * @throws Exception
@@ -185,7 +201,7 @@ public class DatabaseService {
 	}
 
 	/**
-	 * CMethod that create a new table and a sequence into the database for the user.
+	 * Create a new table and a sequence into the database for the users.
 	 * 
 	 * @param connection {@link Connection}
 	 * @throws SQLException
@@ -216,11 +232,9 @@ public class DatabaseService {
 	}
 	
 	/**
-	 * CMethod that create a new table and a sequence into the database for the user.
+	 * Insert a new user in the database.
 	 * 
-	 * @param connection {@link Connection}
 	 * @param user {@link UserJson}
-	 * @throws SQLException
 	 */
 	private void insertUserInDatabase(UserJson user) {
 		
@@ -233,8 +247,6 @@ public class DatabaseService {
 									"VALUES " +
 									"(nextval('users_seq'), ?,?,to_date(?,'yyyy/mm/dd'),?,?,to_date(?,'yyyy/mm/dd'))";
 				
-				System.out.println( "insert statement " + query );
-				
 				PreparedStatement stmt = connection.prepareStatement(query);
 				
 				stmt.setString(1, user.getUsername());
@@ -246,7 +258,6 @@ public class DatabaseService {
 				
 				stmt.executeUpdate();
 				connection.close();
-				System.out.println( "user is inserted" );
 			} else {
 				System.out.println( "no connection" );
 			}
