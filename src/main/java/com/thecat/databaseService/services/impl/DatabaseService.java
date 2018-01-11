@@ -5,6 +5,8 @@ package com.thecat.databaseService.services.impl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -52,7 +54,26 @@ public class DatabaseService {
 	 */
 	public User select(String emailAdress, String password) {
 		
-		connectToDatabase();
+		try {
+			Connection connection = connectToDatabase();
+			
+			if ( connection != null ) {
+				System.out.println( "connection sucessful" );
+				
+				String sql = "select * from USERS";
+				Statement stmt = connection.createStatement();
+				ResultSet rs = stmt.executeQuery(sql);
+				
+				System.out.println( rs.getRow() );
+				
+				rs.close();
+				 
+			} else {
+				System.out.println( "no connection" );
+			}
+		} catch (Exception e ) {
+			System.out.println( e );
+		}
 		
 		// Select from the user list if no database
 		return selectUserFromList(emailAdress, password);
@@ -113,7 +134,7 @@ public class DatabaseService {
 	        user.getPassword()));
 	}
 	
-	private void connectToDatabase() {
+	private Connection connectToDatabase() throws Exception{
 		StringBuffer dbUrl = new StringBuffer( "jdbc:postgresql://" );
 		dbUrl.append( System.getenv( "POSTGRESQL_SERVICE_HOST" ) );
 		dbUrl.append( "/" );
@@ -128,13 +149,12 @@ public class DatabaseService {
 			Connection connection = DriverManager.getConnection( dbUrl.toString(), username, password ); 
 			
 			if ( connection != null ) {
-				System.out.println( "connection sucessful" );
+				return connection; 
 			} else {
-				System.out.println( "no connection" );
+				return null;
 			}
 		} catch ( Exception e ) {
-			System.out.println( e );
-		
+			throw e;
 		}
 	}
 	
