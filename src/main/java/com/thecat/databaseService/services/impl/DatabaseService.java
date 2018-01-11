@@ -3,6 +3,8 @@
  */
 package com.thecat.databaseService.services.impl;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -49,6 +51,9 @@ public class DatabaseService {
 	 * @return {@link User}
 	 */
 	public User select(String emailAdress, String password) {
+		
+		connectToDatabase();
+		
 		// Select from the user list if no database
 		return selectUserFromList(emailAdress, password);
 	}
@@ -107,4 +112,28 @@ public class DatabaseService {
 	        user.getEmailAdr(),
 	        user.getPassword()));
 	}
+	
+	private void connectToDatabase() {
+		StringBuffer dbUrl = new StringBuffer( "jdbc:postgresql://" );
+		dbUrl.append( System.getenv( "POSTGRESQL_SERVICE_HOST" ) );
+		dbUrl.append( System.getenv( "POSTGRESQL_DATABASE" ) );
+		
+		String username = System.getenv( "POSTGRESQL_USER" );
+		String password = System.getenv( "PGPASSWORD" );
+		
+		try {
+				
+			Connection connection = DriverManager.getConnection( dbUrl.toString(), username, password ); 
+			
+			if ( connection != null ) {
+				System.out.println( "connection sucessful" );
+			} else {
+				System.out.println( "no connection" );
+			}
+		} catch ( Exception e ) {
+			System.out.println( e );
+		
+		}
+	}
+	
 }
