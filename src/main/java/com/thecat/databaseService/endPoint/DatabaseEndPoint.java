@@ -82,16 +82,16 @@ public class DatabaseEndPoint {
     /**
      * Parse the the response to a proper JSON element.
      *
-     * @param u {@link User}
+     * @param user {@link User}
      * @return {@link UserJson}
      */
-    private UserJson parseResponse(User u) {
+    private UserJson parseResponse(User user) {
         UserJson uj = new UserJson();
-        uj.setAge(Integer.toString(u.getAge()));
-        uj.setEmailAdr(u.getEmailAddress());
-        uj.setGender(u.getGender().name());
-        uj.setPassword(u.getPassword());
-        uj.setUsername(u.getName());
+        
+        uj.setEmailAdr(user.getEmailAddress());
+        uj.setGender(user.getGender().name());
+        uj.setPassword(user.getPassword());
+        uj.setUsername(user.getName());
 
         return uj;
     }
