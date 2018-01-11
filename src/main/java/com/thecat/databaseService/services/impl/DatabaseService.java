@@ -64,7 +64,12 @@ public class DatabaseService {
 				Statement stmt = connection.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);
 				
-				System.out.println( rs.getRow() );
+				System.out.println( "number of row " + rs.getRow() );
+				
+				while (rs.next() ) {
+					System.out.println( "check element name: " + rs.getString( "NAME" ) );
+					
+				}
 				
 				rs.close();
 				 
