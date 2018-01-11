@@ -39,9 +39,6 @@ public class DatabaseEndPoint {
             	System.out.println( "user is null" );
                 return Response.status(Response.Status.BAD_REQUEST).build();
             } else {
-            	
-            	System.out.println( "databaseEndpoint user" + u.getName() );
-            	
                 UserJson uj = new UserJson();
                 uj.setUsername(u.getName());
 
