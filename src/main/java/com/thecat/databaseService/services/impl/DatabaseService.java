@@ -116,7 +116,9 @@ public class DatabaseService {
 	private void connectToDatabase() {
 		StringBuffer dbUrl = new StringBuffer( "jdbc:postgresql://" );
 		dbUrl.append( System.getenv( "POSTGRESQL_SERVICE_HOST" ) );
+		dbUrl.append( "/" );
 		dbUrl.append( System.getenv( "POSTGRESQL_DATABASE" ) );
+		
 		
 		String username = System.getenv( "POSTGRESQL_USER" );
 		String password = System.getenv( "PGPASSWORD" );
