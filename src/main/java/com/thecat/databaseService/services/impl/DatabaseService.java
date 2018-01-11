@@ -5,10 +5,12 @@ package com.thecat.databaseService.services.impl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -57,13 +59,21 @@ public class DatabaseService {
 	 */
 	public User select(String emailAdress, String password) {
 
+		selectUserFromDatabase();
+		
+		// Select from the user list if no database
+		return selectUserFromList(emailAdress, password);
+	}
+
+	/**
+	 * This methos select a user inside the database
+	 */
+	private void selectUserFromDatabase() {
 		try {		
-			Connection connection = connectToDatabase();
+			Connection connection = getDatabaseConnection();
 
 			if ( connection != null ) {
 				System.out.println( "connection sucessful" );
-
-				createaUserTable( connection );
 							
 				String sql = "select * from USERS";
 				Statement stmt = connection.createStatement();
@@ -84,9 +94,6 @@ public class DatabaseService {
 		} catch (Exception e ) {
 			System.out.println( e );
 		}
-		
-		// Select from the user list if no database
-		return selectUserFromList(emailAdress, password);
 	}
 
 	public User selectUserFromList(String emailAdress, String password) {
@@ -101,8 +108,11 @@ public class DatabaseService {
 	 * @return {@link Boolean}
 	 */
 	public boolean register(UserJson user) {
+		
+		insertUserInDatabase(user);
+		
 		//Register from the user list if no database
-		addUserToList(user);
+		insertUserInList(user);
 		
 		return true;
 	}
@@ -132,7 +142,7 @@ public class DatabaseService {
 	 * @param users {@link UserJson}
 	 * @return 
 	 */
-	private void addUserToList(UserJson user) {
+	private void insertUserInList(UserJson user) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		
 		this.userList.add(
@@ -150,7 +160,7 @@ public class DatabaseService {
 	 * @return {@link Connection}
 	 * @throws Exception
 	 */
-	private Connection connectToDatabase() throws Exception{
+	private Connection getDatabaseConnection() throws Exception{
 		StringBuffer dbUrl = new StringBuffer( "jdbc:postgresql://" );
 		dbUrl.append( System.getenv( "POSTGRESQL_SERVICE_HOST" ) );
 		dbUrl.append( "/" );
@@ -180,7 +190,7 @@ public class DatabaseService {
 	 * @param connection {@link Connection}
 	 * @throws SQLException
 	 */
-	private void createaUserTable(Connection connection) throws SQLException {
+	private void createUserTable(Connection connection) throws SQLException {
 		Statement stmt = connection.createStatement();
 		String createSequence = "CREATE SEQUENCE users_seq "
 				+ "START WITH 1 "
@@ -203,5 +213,45 @@ public class DatabaseService {
 		
 		stmt.executeUpdate(createTable);
 		System.out.println( "table is created" );
+	}
+	
+	/**
+	 * CMethod that create a new table and a sequence into the database for the user.
+	 * 
+	 * @param connection {@link Connection}
+	 * @param user {@link UserJson}
+	 * @throws SQLException
+	 */
+	private void insertUserInDatabase(UserJson user) {
+		
+		try {
+			Connection connection = getDatabaseConnection();
+
+			if ( connection != null ) {
+				String query = "INSERT INTO USERS " +
+									"(ID, NAME, GENDER, BIRTHDATE, EMAILADR, PASSWORD, CREATE_DATE) " +
+									"VALUES " +
+									"(nextval('users_seq'), ?,?,to_date(?,'yyyy/mm/dd'),?,?,to_date(?,'yyyy/mm/dd'))";
+				
+				System.out.println( "insert statement " + query );
+				
+				PreparedStatement stmt = connection.prepareStatement(query);
+				
+				stmt.setString(1, user.getUsername());
+				stmt.setString(2, user.getGender());
+				stmt.setString(3, user.getAge());
+				stmt.setString(4, user.getEmailAdr());
+				stmt.setString(5, user.getPassword());
+				stmt.setString(6, LocalDateTime.now().toString());
+				
+				stmt.executeUpdate();
+				connection.close();
+				System.out.println( "user is inserted" );
+			} else {
+				System.out.println( "no connection" );
+			}
+		} catch (Exception e ) {
+			System.out.println( e );
+		}
 	}
 }
