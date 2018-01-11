@@ -1,6 +1,8 @@
 DROP TABLE IF EXISTS USERS;
 DROP SEQUENCE IF EXISTS users_seq;
 
+BEGIN;
+
 CREATE SEQUENCE users_seq
  START WITH     1
  INCREMENT BY   1;
@@ -18,3 +20,5 @@ CREATE SEQUENCE users_seq
 
 INSERT INTO USERS (ID, NAME, GENDER, BIRTHDATE, EMAILADR, PASSWORD, CREATE_DATE) VALUES
   (nextval('users_seq'), 'System Admin','Male', current_timestamp, 'admin@coffeshop.com', 'pwd001',current_timestamp );
+
+COMMIT;
