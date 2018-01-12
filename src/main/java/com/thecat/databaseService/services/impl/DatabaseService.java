@@ -60,9 +60,9 @@ public class DatabaseService {
 	 * @return {@link User}
 	 */
 	public User select(String emailAdress, String password) {
-		User response = selectUserFromList(emailAdress, password);
+//		User response = selectUserFromList(emailAdress, password);
 		
-//		User response = selectUserFromDatabase(emailAdress, password);
+		User response = selectUserFromDatabase(emailAdress, password);
 		
 		return response;
 	}
@@ -127,9 +127,9 @@ public class DatabaseService {
 	 */
 	public boolean register(UserJson user) {
 		
-		insertUserInList(user);
+//		insertUserInList(user);
 
-//		insertUserInDatabase(user);
+		insertUserInDatabase(user);
 				
 		return true;
 	}
