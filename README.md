@@ -18,5 +18,3 @@ Should run in a multitude of application server.  Has been tested with:
 The service can be tested using Postman using a JSON object.
 
 #Here how to [contribute](CONTRIBUTING.md)
-
-with Anton.
