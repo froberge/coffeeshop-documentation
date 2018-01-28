@@ -16,10 +16,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
-import org.apache.http.ConnectionClosedException;
-
 import com.thecat.databaseService.entities.User;
 import com.thecat.databaseService.entities.UserJson;
 
