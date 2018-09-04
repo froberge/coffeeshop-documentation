@@ -29,7 +29,7 @@ public class DatabaseEndPoint {
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    @Path( "/user/select" )
+    @Path( "/users/select" )
     public Response selectUser(UserJson user) {
         if (user != null) {
             User u = DatabaseService.getInstance().selectUser(user.getEmailAdr(), user.getPassword());
@@ -60,7 +60,7 @@ public class DatabaseEndPoint {
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    @Path( "/user/register" )
+    @Path( "/users/register" )
     public Response registerUser(UserJson user) {
         if (user != null) {
             
