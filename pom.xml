@@ -62,11 +62,11 @@
     </dependencies>
 
     <build>
-	<resources>
-	    <resource>
-		<directory>dbscripts</directory>
-	    </resource>
-	</resources>
+	    <resources>
+	        <resource>
+		        <directory>dbscripts</directory>
+	        </resource>
+	    </resources>
         <finalName>DatabaseService</finalName>
     </build>
 </project>
