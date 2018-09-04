@@ -22,9 +22,9 @@ CREATE TABLE USERS(
 );
 
 INSERT INTO USERS (ID, NAME, GENDER, BIRTHDATE, EMAILADR, PASSWORD, CREATE_DATE) VALUES
-  (nextval('users_seq'), 'System Admin','Male', current_timestamp, 'admin@coffeshop.com', 'pwd001',current_timestamp );
+  (nextval('users_seq'), 'System Admin','Male', current_timestamp, 'admin@coffeeshop.com', 'pwd001',current_timestamp );
 INSERT INTO USERS (ID, NAME, GENDER, BIRTHDATE, EMAILADR, PASSWORD, CREATE_DATE) VALUES
-  (nextval('users_seq'), 'Default user','Male', current_timestamp, 'default@coffeshop.com', 'default123',current_timestamp );
+  (nextval('users_seq'), 'Default user','Male', current_timestamp, 'default@coffeeshop.com', 'default123',current_timestamp );
 
 CREATE SEQUENCE products_seq
   START WITH     1
