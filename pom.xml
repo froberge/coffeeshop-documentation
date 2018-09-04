@@ -63,11 +63,9 @@
 
     <build>
         <resources>
-                <resource>
-                    <includes>
-                        <include>dbscripts/*.sql</include>
-                    </includes>
-                </resource>
+            <resource>
+                <directory>dbscripts</directory>
+            </resource>
         </resources>
         <finalName>DatabaseService</finalName>
     </build>
