@@ -39,77 +39,9 @@ public class DatabaseService {
 		return dbService;
 	}
 
-
-	/**
-	 * Find a given user.
-	 * 
-	 * @param emailAdress {@link String}
-	 * @param password {@link String}
-	 * @return {@link User}
-	 */
-	public User select(String emailAdress, String password) {
-		User response = selectUserFromDatabase(emailAdress, password);
-		
-		return response;
-	}
-
-	/**
-	 * Select user from the database.
-	 * 
-	 * @param emailAdress {@link String}
-	 * @param password {@link String}
-	 * @return {@link User}
-	 */
-	private User selectUserFromDatabase(String emailAdress, String password) {
-		User response = null;
-		
-		try {		
-			Connection connection = getDatabaseConnection();
-
-			if ( connection != null ) {
-				String query = "select * from USERS where emailadr = ? and password = ?";
-				PreparedStatement stmt = connection.prepareStatement(query);
-				
-				stmt.setString(1, emailAdress);
-				stmt.setString(2, password);
-				
-				ResultSet rs = stmt.executeQuery();
-				
-				while (rs.next() ) {
-					response = new User();
-					response.setName( rs.getString( "NAME" ) );
-				}
-				
-				rs.close();
-				connection.close();
-				return response;
-			} else {
-				System.out.println( "no connection" );
-			}
-		} catch (Exception e ) {
-			System.out.println( e );
-		}
-		
-		return response;
-	}
-
-	/**
-	 * Add a new user for a system
-	 * 
-	 * @param user {@link UserJson}
-	 * @return {@link Boolean}
-	 */
-	public boolean register(UserJson user) {
-		
-		insertUserInDatabase(user);
-				
-		return true;
-	}
-
-	
 	/**
 	 *  This method create a connection to the database.
-	 *  
+	 *
 	 * @return {@link Connection}
 	 * @throws Exception
 	 */
@@ -118,56 +50,22 @@ public class DatabaseService {
 		dbUrl.append( System.getenv( "POSTGRESQL_SERVICE_HOST" ) );
 		dbUrl.append( "/" );
 		dbUrl.append( System.getenv( "POSTGRESQL_DATABASE" ) );
-		
-		
+
+
 		String username = System.getenv( "POSTGRESQL_USER" );
 		String password = System.getenv( "PGPASSWORD" );
-		
+
 		try {
-				
-			Connection connection = DriverManager.getConnection( dbUrl.toString(), username, password ); 
-			
+
+			Connection connection = DriverManager.getConnection( dbUrl.toString(), username, password );
+
 			if ( connection != null ) {
-				return connection; 
+				return connection;
 			} else {
 				return null;
 			}
 		} catch ( Exception e ) {
 			throw e;
-		}
-	}
-
-	/**
-	 * Insert a new user in the database.
-	 *
-	 * @param user {@link UserJson}
-	 */
-	private void insertUserInDatabase(UserJson user) {
-		try {
-			Connection connection = getDatabaseConnection();
-
-			if ( connection != null ) {
-				String query = "INSERT INTO USERS " +
-						"(ID, NAME, GENDER, BIRTHDATE, EMAILADR, PASSWORD, CREATE_DATE) " +
-						"VALUES " +
-						"(nextval('users_seq'), ?,?,to_date(?,'yyyy/mm/dd'),?,?,to_date(?,'yyyy/mm/dd'))";
-
-				PreparedStatement stmt = connection.prepareStatement(query);
-
-				stmt.setString(1, user.getUsername());
-				stmt.setString(2, user.getGender());
-				stmt.setString(3, user.getAge());
-				stmt.setString(4, user.getEmailAdr());
-				stmt.setString(5, user.getPassword());
-				stmt.setString(6, LocalDateTime.now().toString());
-
-				stmt.executeUpdate();
-				connection.close();
-			} else {
-				System.out.println( "no connection" );
-			}
-		} catch (Exception e ) {
-			System.out.println( e );
 		}
 	}
 
@@ -203,6 +101,87 @@ public class DatabaseService {
 			}
 		} catch( Exception e ) {
 			System.out.println("problem creating the script \n " + e.getMessage());
+		}
+
+		return response;
+	}
+
+	/**
+	 * Find a given user.
+	 * 
+	 * @param emailAddress {@link String}
+	 * @param password {@link String}
+	 * @return {@link User}
+	 */
+	public User selectUser(String emailAddress, String password) {
+		User response = null;
+		
+		try {		
+			Connection connection = getDatabaseConnection();
+
+			if ( connection != null ) {
+				String query = "select * from USERS where emailadr = ? and password = ?";
+				PreparedStatement stmt = connection.prepareStatement(query);
+				
+				stmt.setString(1, emailAddress);
+				stmt.setString(2, password);
+				
+				ResultSet rs = stmt.executeQuery();
+				
+				while (rs.next() ) {
+					response = new User();
+					response.setName( rs.getString( "NAME" ) );
+				}
+				
+				rs.close();
+				connection.close();
+				return response;
+			} else {
+				System.out.println( "no connection" );
+			}
+		} catch (Exception e ) {
+			System.out.println( e );
+		}
+		
+		return response;
+	}
+
+	/**
+	 * Insert a new user in the database.
+	 *
+	 * @param user {@link UserJson}
+	 * @return boolean
+	 */
+	public boolean registerUser(UserJson user) {
+		boolean response = false;
+
+		try {
+			Connection connection = getDatabaseConnection();
+
+			if ( connection != null ) {
+				String query = "INSERT INTO USERS " +
+						"(ID, NAME, GENDER, BIRTHDATE, EMAILADR, PASSWORD, CREATE_DATE) " +
+						"VALUES " +
+						"(nextval('users_seq'), ?,?,to_date(?,'yyyy/mm/dd'),?,?,to_date(?,'yyyy/mm/dd'))";
+
+				PreparedStatement stmt = connection.prepareStatement(query);
+
+				stmt.setString(1, user.getUsername());
+				stmt.setString(2, user.getGender());
+				stmt.setString(3, user.getAge());
+				stmt.setString(4, user.getEmailAdr());
+				stmt.setString(5, user.getPassword());
+				stmt.setString(6, LocalDateTime.now().toString());
+
+				stmt.executeUpdate();
+				connection.close();
+
+				response =  true;
+			} else {
+				System.out.println( "no connection" );
+			}
+		} catch (Exception e ) {
+			System.out.println( e );
 		}
 
 		return response;

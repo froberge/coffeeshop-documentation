@@ -15,11 +15,10 @@ import com.thecat.databaseService.services.impl.DatabaseService;
  * API use to manage interaction with the database
  *
  * @author froberge
- * @since December 2017
+ * @since September 2018
  */
 @Path("/db")
 public class DatabaseEndPoint {
-
 
     /**
      * Select a given user from the database, Only the username will be return.
@@ -30,10 +29,10 @@ public class DatabaseEndPoint {
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    @Path( "/select" )
-    public Response select(UserJson user) {
+    @Path( "/selectuser" )
+    public Response selectUser(UserJson user) {
         if (user != null) {
-            User u = DatabaseService.getInstance().select(user.getEmailAdr(), user.getPassword());
+            User u = DatabaseService.getInstance().selectUser(user.getEmailAdr(), user.getPassword());
 
             if (u == null) {
                 return Response.status(Response.Status.BAD_REQUEST).entity( "Can't find user" ).build();
@@ -61,11 +60,11 @@ public class DatabaseEndPoint {
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    @Path( "/register" )
-    public Response register(UserJson user) {
+    @Path( "/registeruser" )
+    public Response registerUser(UserJson user) {
         if (user != null) {
             
-        	boolean b = DatabaseService.getInstance().register(user);
+        	boolean b = DatabaseService.getInstance().registerUser(user);
 
             if (b ) {
                 return Response.ok().build();
@@ -90,8 +89,8 @@ public class DatabaseEndPoint {
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    @Path( "/create" )
-    public Response create() {
+    @Path( "/createdb" )
+    public Response createDatabase() {
 		boolean b = DatabaseService.getInstance().createDatabase();
 
 		if (b) {
