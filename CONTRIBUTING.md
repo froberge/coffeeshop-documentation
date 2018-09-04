@@ -1,6 +1,6 @@
 # How to contribute
 
-This service is part of a project use to help teach micro services architecture and different coding best practices using tool such as github, Minishift and java8. So if you want to contribute you are more then welcome will following the given guideline.  You are also welcome to use the code for your personal project if it fits your needs.
+This service is part of a project use to help teach micro services architecture and different coding best practices using tool such as github, Minishift and java8. So if you want to contribute you are more then welcome while following the given guideline.  You are also welcome to use the code for your personal project if it fits your needs.
 
 ## Getting Started
 * Make sure you have a [GitHub account](https://github.com/signup/free).

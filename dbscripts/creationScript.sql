@@ -21,4 +21,8 @@ CREATE SEQUENCE users_seq
 INSERT INTO USERS (ID, NAME, GENDER, BIRTHDATE, EMAILADR, PASSWORD, CREATE_DATE) VALUES
   (nextval('users_seq'), 'System Admin','Male', current_timestamp, 'admin@coffeshop.com', 'pwd001',current_timestamp );
 
+INSERT INTO USERS (ID, NAME, GENDER, BIRTHDATE, EMAILADR, PASSWORD, CREATE_DATE) VALUES
+  (nextval('users_seq'), 'Default user','Male', current_timestamp, 'default@example.com', 'default123',current_timestamp );
+
+
 COMMIT;

@@ -23,7 +23,7 @@ import com.thecat.databaseService.entities.UserJson;
  * Implement the Database Service
  *
  * @author froberge
- * @since December, 2017
+ * @since September, 2018
  */
 public class DatabaseService {
 
@@ -32,7 +32,7 @@ public class DatabaseService {
 	private List<User> userList;
 	
 	/**
-	 * Private constructor to prevent the creation of the LoginService
+	 * Private constructor to prevent the creation of the DatabaseService
 	 */
 	private DatabaseService(){
 		// Initialize the userList
@@ -56,9 +56,9 @@ public class DatabaseService {
 	 * @return {@link User}
 	 */
 	public User select(String emailAdress, String password) {
-//		User response = selectUserFromList(emailAdress, password);
+		User response = selectUserFromList(emailAdress, password);
 		
-		User response = selectUserFromDatabase(emailAdress, password);
+//		User response = selectUserFromDatabase(emailAdress, password);
 		
 		return response;
 	}
@@ -142,10 +142,10 @@ public class DatabaseService {
 	    list.add(
 	        new User(
 	        "test",
-	        User.Gender.FEMALE,
+	        User.Gender.MALE,
 	        LocalDate.now().minusYears(17),
-	        "test@example.com",
-	        "test"));
+	        "default@example.com",
+	        "default123"));
 	    
 	    return list;
 	}
@@ -153,7 +153,7 @@ public class DatabaseService {
 	/**
 	 * Insert a new user in the list.
 	 * 
-	 * @param users {@link UserJson}
+	 * @param user {@link UserJson}
 	 */
 	private void insertUserInList(UserJson user) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
