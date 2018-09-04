@@ -81,4 +81,26 @@ public class DatabaseEndPoint {
                     .build();
         }
     }
+
+    /**
+     * register action
+     *
+     * @param {@link UserJson} user
+     * @return
+     */
+    @POST
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path( "/create=" )
+    public Response create() {
+
+		boolean b = DatabaseService.getInstance().createDatabase();
+		if (b) {
+			return Response.ok().build();
+		} else {
+			return Response.status(Response.Status.BAD_REQUEST)
+					.entity("Could not create database")
+					.build();
+		}
+    }
 }

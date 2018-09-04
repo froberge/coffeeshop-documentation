@@ -3,6 +3,8 @@
  */
 package com.thecat.databaseService.services.impl;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -141,7 +143,7 @@ public class DatabaseService {
 	    List<User> list = new LinkedList<User>();
 	    list.add(
 	        new User(
-	        "test",
+	        "default",
 	        User.Gender.MALE,
 	        LocalDate.now().minusYears(17),
 	        "default@example.com",
@@ -198,61 +200,29 @@ public class DatabaseService {
 	}
 
 	/**
-	 * Create a new table and a sequence into the database for the users.
-	 * 
-	 * @param connection {@link Connection}
-	 * @throws SQLException
-	 */
-	private void createUserTable(Connection connection) throws SQLException {
-		Statement stmt = connection.createStatement();
-		String createSequence = "CREATE SEQUENCE users_seq "
-				+ "START WITH 1 "
-				+ "INCREMENT BY   1";
-		
-		stmt.executeUpdate(createSequence);
-		System.out.println( "sequence is created" );
-		
-		
-		String createTable = "CREATE TABLE USERS " +
-			    "(ID INT NOT NULL, " +
-			    "NAME VARCHAR(100) NOT NULL, " +
-			    "GENDER VARCHAR(6) NOT NULL, " +
-			    "BIRTHDATE DATE, " +
-			    "EMAILADR VARCHAR(100) NOT NULL, " +
-			    "PASSWORD  VARCHAR(20)  NOT NULL, " +
-			    "CREATE_DATE DATE, " + 
-			    "PRIMARY KEY (ID))";
-
-		
-		stmt.executeUpdate(createTable);
-		System.out.println( "table is created" );
-	}
-	
-	/**
 	 * Insert a new user in the database.
-	 * 
+	 *
 	 * @param user {@link UserJson}
 	 */
 	private void insertUserInDatabase(UserJson user) {
-		
 		try {
 			Connection connection = getDatabaseConnection();
 
 			if ( connection != null ) {
 				String query = "INSERT INTO USERS " +
-									"(ID, NAME, GENDER, BIRTHDATE, EMAILADR, PASSWORD, CREATE_DATE) " +
-									"VALUES " +
-									"(nextval('users_seq'), ?,?,to_date(?,'yyyy/mm/dd'),?,?,to_date(?,'yyyy/mm/dd'))";
-				
+						"(ID, NAME, GENDER, BIRTHDATE, EMAILADR, PASSWORD, CREATE_DATE) " +
+						"VALUES " +
+						"(nextval('users_seq'), ?,?,to_date(?,'yyyy/mm/dd'),?,?,to_date(?,'yyyy/mm/dd'))";
+
 				PreparedStatement stmt = connection.prepareStatement(query);
-				
+
 				stmt.setString(1, user.getUsername());
 				stmt.setString(2, user.getGender());
 				stmt.setString(3, user.getAge());
 				stmt.setString(4, user.getEmailAdr());
 				stmt.setString(5, user.getPassword());
 				stmt.setString(6, LocalDateTime.now().toString());
-				
+
 				stmt.executeUpdate();
 				connection.close();
 			} else {
@@ -262,4 +232,81 @@ public class DatabaseService {
 			System.out.println( e );
 		}
 	}
+
+	/**
+	 * Create the database schea needed for the coffee shop user and the product to start with.
+	 * This is a work around to speed things up.
+	 *
+	 * @return boolean
+	 */
+	public boolean createDatabase() {
+
+		boolean response = false;
+		String scriptFile = "dbcripts/creationScript.sql";
+		BufferedReader in = null;
+
+		try {
+			Connection connection = getDatabaseConnection();
+
+			if (connection != null) {
+				Statement stmt = connection.createStatement();
+				in = new BufferedReader(new FileReader( scriptFile ) );
+				String line;
+				StringBuffer sb = new StringBuffer();
+
+				//Read the script
+				while ((line = in.readLine()) != null) {
+					sb.append(line + "\n ");
+				}
+
+				in.close();
+				System.out.println("Here is the SQL script \n " + sb.toString());
+				stmt.executeUpdate(sb.toString());
+				response = true;
+			}
+		} catch( Exception e ) {
+			System.out.println("problem creating the script \n " + e.getMessage());
+		}
+
+		return response;
+	}
+
+
+/*	private void createDatabase() throws SQLException {
+
+		try {
+			Connection connection = getDatabaseConnection();
+
+			if ( connection != null ) {
+				Statement stmt = connection.createStatement();
+				String createSequence = "CREATE SEQUENCE users_seq "
+										+ "START WITH 1 "
+										+ "INCREMENT BY   1";
+		
+				stmt.executeUpdate(createSequence);
+				System.out.println( "sequence is created" );
+		
+		
+				String createTable = "CREATE TABLE USERS " +
+									"(ID INT NOT NULL, " +
+									"NAME VARCHAR(100) NOT NULL, " +
+									"GENDER VARCHAR(6) NOT NULL, " +
+									"BIRTHDATE DATE, " +
+									"EMAILADR VARCHAR(100) NOT NULL, " +
+									"PASSWORD  VARCHAR(20)  NOT NULL, " +
+									"CREATE_DATE DATE, " +
+									"PRIMARY KEY (ID))";
+
+				stmt.executeUpdate(createTable);
+				System.out.println( "table is created" );
+
+				connection.close();
+			} else {
+				System.out.println( "no connection" );
+			}
+		} catch (Exception e ) {
+			System.out.println( e );
+	}
+
+*/
 }
