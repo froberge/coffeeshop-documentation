@@ -22,7 +22,7 @@ public class DatabaseEndPoint {
 
 
     /**
-     * select action 
+     * Select a given user from the database, Only the username will be return.
      *
      * @param {@link UserJson} user
      * @return {@link UserJson}
@@ -36,7 +36,7 @@ public class DatabaseEndPoint {
             User u = DatabaseService.getInstance().select(user.getEmailAdr(), user.getPassword());
 
             if (u == null) {
-                return Response.status(Response.Status.BAD_REQUEST).build();
+                return Response.status(Response.Status.BAD_REQUEST).entity( "Can't find user" ).build();
             } else {
                 UserJson uj = new UserJson();
                 uj.setUsername(u.getName());
