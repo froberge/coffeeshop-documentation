@@ -68,7 +68,7 @@
                         <include>dbscripts/*.sql</include>
                     </includes>
                 </resource>
-        <resources>
+        </resources>
         <finalName>DatabaseService</finalName>
     </build>
 </project>
