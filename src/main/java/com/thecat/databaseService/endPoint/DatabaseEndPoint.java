@@ -93,12 +93,10 @@ public class DatabaseEndPoint {
     @Produces({MediaType.APPLICATION_JSON})
     @Path( "/create" )
     public Response create() {
-
 		boolean b = DatabaseService.getInstance().createDatabase();
-		System.out.println( "Create database" );
 
 		if (b) {
-			return Response.ok().build();
+			return Response.ok().entity( "Database was successfully created" ).build();
 		} else {
 			return Response.status(Response.Status.BAD_REQUEST)
 					.entity("Could not create database")
