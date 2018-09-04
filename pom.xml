@@ -62,6 +62,13 @@
     </dependencies>
 
     <build>
+        <resources>
+                <resource>
+                    <includes>
+                        <include>dbscripts/*.sql</include>
+                    </includes>
+                </resource>
+        <resources>
         <finalName>DatabaseService</finalName>
     </build>
 </project>

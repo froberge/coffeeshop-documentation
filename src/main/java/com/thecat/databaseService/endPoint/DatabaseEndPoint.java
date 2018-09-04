@@ -91,10 +91,12 @@ public class DatabaseEndPoint {
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    @Path( "/create=" )
+    @Path( "/create" )
     public Response create() {
 
 		boolean b = DatabaseService.getInstance().createDatabase();
+		System.out.println( "Create database" );
+
 		if (b) {
 			return Response.ok().build();
 		} else {

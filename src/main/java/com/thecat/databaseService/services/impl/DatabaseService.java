@@ -242,7 +242,7 @@ public class DatabaseService {
 	public boolean createDatabase() {
 
 		boolean response = false;
-		String scriptFile = "dbcripts/creationScript.sql";
+		String scriptFile = "creationScript.sql";
 		BufferedReader in = null;
 
 		try {
