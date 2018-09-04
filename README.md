@@ -9,7 +9,7 @@ Their is to database option with this service.
 1. Insert in a Java List
 2. User a PLSQL database
 
-To create the database you can call the endpoint create which will load the database using the script found dbscripts/creationScript.sql
+To create the database you can call the endpoint createdb which will load the database using the script found dbscripts/creationScript.sql
 
 This is a maven project so just import in your favorite IDE and it should work.
 
