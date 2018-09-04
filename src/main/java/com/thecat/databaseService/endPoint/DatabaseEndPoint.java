@@ -36,7 +36,6 @@ public class DatabaseEndPoint {
             User u = DatabaseService.getInstance().select(user.getEmailAdr(), user.getPassword());
 
             if (u == null) {
-            	System.out.println( "user is null" );
                 return Response.status(Response.Status.BAD_REQUEST).build();
             } else {
                 UserJson uj = new UserJson();

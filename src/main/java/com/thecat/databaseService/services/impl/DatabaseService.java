@@ -198,7 +198,6 @@ public class DatabaseService {
 				}
 
 				in.close();
-				System.out.println("Here is the SQL script \n " + sb.toString());
 				stmt.executeUpdate(sb.toString());
 				response = true;
 			}
