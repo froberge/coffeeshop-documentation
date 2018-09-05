@@ -64,9 +64,9 @@ INSERT INTO PRODUCTS (ID, NAME, CATEGORY, SUB_CATEGORY_1, SUB_CATEGORY_2, PRICE,
 INSERT INTO PRODUCTS (ID, NAME, CATEGORY, SUB_CATEGORY_1, SUB_CATEGORY_2, PRICE,CREATE_DATE) VALUES
   (nextval('products_seq'), 'Large Decaf','DRINK', 'COFFEE', 'HOT', 2.25, current_timestamp );
 INSERT INTO PRODUCTS (ID, NAME, CATEGORY, SUB_CATEGORY_1, SUB_CATEGORY_2, PRICE,CREATE_DATE) VALUES
-  (nextval('products_seq'), 'Small The','DRINK', 'TEA', 'HOT', 2.25, current_timestamp );
+  (nextval('products_seq'), 'Small TEA','DRINK', 'TEA', 'HOT', 2.25, current_timestamp );
 INSERT INTO PRODUCTS (ID, NAME, CATEGORY, SUB_CATEGORY_1, SUB_CATEGORY_2, PRICE,CREATE_DATE) VALUES
-  (nextval('products_seq'), 'Large The','DRINK', 'TEA', 'HOT', 2.25, current_timestamp );
+  (nextval('products_seq'), 'Large TEA','DRINK', 'TEA', 'HOT', 2.25, current_timestamp );
 INSERT INTO PRODUCTS (ID, NAME, CATEGORY, SUB_CATEGORY_1, SUB_CATEGORY_2, PRICE,CREATE_DATE) VALUES
   (nextval('products_seq'), 'Small Ice Coffee','DRINK', 'COFFEE', 'COLD', 3.00, current_timestamp );
 INSERT INTO PRODUCTS (ID, NAME, CATEGORY, SUB_CATEGORY_1, SUB_CATEGORY_2, PRICE,CREATE_DATE) VALUES
