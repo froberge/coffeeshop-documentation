@@ -256,6 +256,8 @@ public class DatabaseService {
 				ResultSet rs = stmt.executeQuery();
 
 				while (rs.next() ) {
+					System.out.println( "found the user " );
+
 					product = new Product();
 					product.setId( rs.getString( "ID" ) );
 					product.setName(rs.getString( "NAME" ) );
