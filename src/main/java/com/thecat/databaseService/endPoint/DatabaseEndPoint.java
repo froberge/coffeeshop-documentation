@@ -3,6 +3,7 @@ package com.thecat.databaseService.endPoint;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
 import com.thecat.databaseService.entities.Product;
 import com.thecat.databaseService.entities.User;
 import com.thecat.databaseService.entities.UserJson;
@@ -104,8 +105,7 @@ public class DatabaseEndPoint {
     /**
      * Select all the product from the database
      *
-     * @param {@link UserJson} user
-     * @return {@link UserJson}
+     * @return
      */
     @GET
     @Produces({MediaType.APPLICATION_JSON})
@@ -115,6 +115,18 @@ public class DatabaseEndPoint {
         return DatabaseService.getInstance().selectAllProduct();
     }
 
+    /**
+     * Select a given product
+     *
+     * @param id
+     * return
+     */
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path( "/products/{id}" )
+    public Product selectAProduct(@PathParam( "id" ) String id) {
 
+        return DatabaseService.getInstance().selectAProduct( id );
+    }
 
 }

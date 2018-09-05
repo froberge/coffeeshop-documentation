@@ -234,4 +234,46 @@ public class DatabaseService {
 
 		return productList;
 	}
+
+	/**
+	 * Find a given product.
+	 *
+	 * @param id  {@link String}
+	 * @return {@link Product}
+	 */
+	public Product selectAProduct(String id) {
+		Product product = null;
+
+		try {
+			Connection connection = getDatabaseConnection();
+
+			if ( connection != null ) {
+				String query = "select * from PRODUCTS where id = ?";
+				PreparedStatement stmt = connection.prepareStatement(query);
+
+				stmt.setInt(1, Integer.parseInt(id) );
+
+				ResultSet rs = stmt.executeQuery();
+
+				while (rs.next() ) {
+					product = new Product();
+					product.setId( rs.getString( "ID" ) );
+					product.setName(rs.getString( "NAME" ) );
+					product.setCategory( rs.getString( "CATEGORY") );
+					product.setSubCategory_1( rs.getString( "SUB_CATEGORY_1") );
+					product.setSubCategory_2( rs.getString( "SUB_CATEGORY_2" ) );
+					product.setPrice( rs.getString( "PRICE" ) );
+				}
+
+				rs.close();
+				connection.close();
+			} else {
+				System.out.println( "no connection" );
+			}
+		} catch (Exception e ) {
+			System.out.println( e );
+		}
+
+		return product;
+	}
 }
