@@ -11,7 +11,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author froberge
  * @since December 2017
  */
-@XmlRootElement
 public  class User {
 
 	public enum Gender {

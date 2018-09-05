@@ -1,15 +1,14 @@
 package com.thecat.databaseService.endPoint;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
+import com.thecat.databaseService.entities.Product;
 import com.thecat.databaseService.entities.User;
 import com.thecat.databaseService.entities.UserJson;
 import com.thecat.databaseService.services.impl.DatabaseService;
+
+import java.util.List;
 
 /**
  * API use to manage interaction with the database
@@ -101,4 +100,31 @@ public class DatabaseEndPoint {
 					.build();
 		}
     }
+
+    /**
+     * Select all the product from the database
+     *
+     * @param {@link UserJson} user
+     * @return {@link UserJson}
+     */
+    @POST
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path( "/products/selectAll" )
+    public Response selectProducts() {
+
+        List<Product> listProduct = DatabaseService.getInstance().selectAllProduct();
+
+        if (listProduct == null) {
+            return Response.status(Response.Status.BAD_REQUEST).entity( "No product Found" ).build();
+        } else {
+            UserJson uj = new UserJson();
+            uj.setUsername( "in the method" );
+
+            return Response.ok()
+                    .entity(uj)
+                    .build();
+        }
+    }
+
 }

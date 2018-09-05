@@ -11,7 +11,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.thecat.databaseService.entities.Product;
 import com.thecat.databaseService.entities.User;
 import com.thecat.databaseService.entities.UserJson;
 
@@ -185,5 +188,51 @@ public class DatabaseService {
 		}
 
 		return response;
+	}
+
+	/**
+	 * Find all the product.
+	 *
+	 * @return
+	 */
+	public List<Product> selectAllProduct() {
+		List<Product> productList = null;
+
+		try {
+			Connection connection = getDatabaseConnection();
+
+			if ( connection != null ) {
+				String query = "select * from PRODUCTS";
+				PreparedStatement stmt = connection.prepareStatement(query);
+
+				ResultSet rs = stmt.executeQuery();
+
+				if (rs != null ) {
+					productList = new ArrayList<>();
+				}
+
+				while (rs.next() ) {
+					Product p  = new Product();
+					p.setId(rs.getString( "ID" ) );
+					p.setName( rs.getString( "NAME") );
+					p.setCategory( rs.getString( "CATEGORY" ) );
+					p.setSubCategory_1( rs.getString( "SUB_CATEGORY_1" ) );
+					p.setSubCategory_2( rs.getString( "SUB_CATEGORY_2" ) );
+					p.setPrice( rs.getString( "PRICE" ) );
+					p.setCreateDate( rs.getString( "CREATE_DATE" ) );
+
+					productList.add( p );
+				}
+
+				rs.close();
+				connection.close();
+			} else {
+				System.out.println( "no connection" );
+			}
+		} catch (Exception e ) {
+			System.out.println( e );
+		}
+
+		return productList;
 	}
 }
