@@ -121,7 +121,7 @@ public class DatabaseEndPoint {
             System.out.print( "list product size : " + listProduct.size() );
 
             return Response.ok()
-                    .entity(listProduct.get(1) )
+                    .entity(listProduct)
                     .build();
         }
     }
