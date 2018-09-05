@@ -100,31 +100,31 @@ public class DatabaseEndPoint {
 					.build();
 		}
     }
-
-    /**
-     * Select all the product from the database
-     *
-     * @param {@link UserJson} user
-     * @return {@link UserJson}
-     */
-    @POST
-    @Consumes({MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_JSON})
-    @Path( "/products/selectAll" )
-    public Response selectAllProducts() {
-
-        List<Product> listProduct = DatabaseService.getInstance().selectAllProduct();
-
-        if (listProduct == null) {
-            return Response.status(Response.Status.BAD_REQUEST).entity( "No product Found" ).build();
-        } else {
-            System.out.print( "list product size : " + listProduct.size() );
-
-            return Response.ok()
-                    .entity(listProduct)
-                    .build();
-        }
-    }
+//
+//    /**
+//     * Select all the product from the database
+//     *
+//     * @param {@link UserJson} user
+//     * @return {@link UserJson}
+//     */
+//    @POST
+//    @Consumes({MediaType.APPLICATION_JSON})
+//    @Produces({MediaType.APPLICATION_JSON})
+//    @Path( "/products/selectAll" )
+//    public Response selectAllProducts() {
+//
+//        List<Product> listProduct = DatabaseService.getInstance().selectAllProduct();
+//
+//        if (listProduct == null) {
+//            return Response.status(Response.Status.BAD_REQUEST).entity( "No product Found" ).build();
+//        } else {
+//            System.out.print( "list product size : " + listProduct.size() );
+//
+//            return Response.ok()
+//                    .entity(listProduct)
+//                    .build();
+//        }
+//    }
 
     /**
      * Select all the product from the database
