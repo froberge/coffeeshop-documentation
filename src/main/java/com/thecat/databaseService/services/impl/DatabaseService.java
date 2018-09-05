@@ -5,11 +5,7 @@ package com.thecat.databaseService.services.impl;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -208,19 +204,7 @@ public class DatabaseService {
 				ResultSet rs = stmt.executeQuery();
 
 				if (rs != null ) {
-					productList = new ArrayList<>();
-				}
-
-				while (rs.next() ) {
-					Product p  = new Product();
-					p.setId(rs.getString( "ID" ) );
-					p.setName( rs.getString( "NAME") );
-					p.setCategory( rs.getString( "CATEGORY" ) );
-					p.setSubCategory_1( rs.getString( "SUB_CATEGORY_1" ) );
-					p.setSubCategory_2( rs.getString( "SUB_CATEGORY_2" ) );
-					p.setPrice( rs.getString( "PRICE" ) );
-
-					productList.add( p );
+					productList = parseProductResult( rs );
 				}
 
 				rs.close();
@@ -255,16 +239,8 @@ public class DatabaseService {
 
 				ResultSet rs = stmt.executeQuery();
 
-				while (rs.next() ) {
-					System.out.println( "found the user " );
-
-					product = new Product();
-					product.setId( rs.getString( "ID" ) );
-					product.setName(rs.getString( "NAME" ) );
-					product.setCategory( rs.getString( "CATEGORY") );
-					product.setSubCategory_1( rs.getString( "SUB_CATEGORY_1") );
-					product.setSubCategory_2( rs.getString( "SUB_CATEGORY_2" ) );
-					product.setPrice( rs.getString( "PRICE" ) );
+				if (rs != null ) {
+					product = parseProductResult( rs ).get(0);
 				}
 
 				rs.close();
@@ -277,5 +253,66 @@ public class DatabaseService {
 		}
 
 		return product;
+	}
+
+	/**
+	 * Select Product that contains the given name
+	 * @param name
+	 * @return
+	 */
+	public List<Product> selectProductByName(String name) {
+		List<Product> productList = null;
+
+		try {
+			Connection connection = getDatabaseConnection();
+
+			if ( connection != null ) {
+				String query = "SELECT * FROM PRODUCTS\n" +
+						"WHERE UPPER(NAME) LIKE UPPER(% ? %)";
+
+				PreparedStatement stmt = connection.prepareStatement(query);
+				stmt.setString(1, name );
+
+				ResultSet rs = stmt.executeQuery();
+
+				if (rs != null ) {
+					productList = parseProductResult( rs );
+				}
+
+				rs.close();
+				connection.close();
+			} else {
+				System.out.println( "no connection" );
+			}
+		} catch (Exception e ) {
+			System.out.println( e );
+		}
+
+		return productList;
+	}
+
+	/**
+	 * Parse the result from the database query.
+	 *
+	 * @param rs
+	 * @return
+	 * @throws SQLException
+	 */
+	private List<Product> parseProductResult(ResultSet rs) throws SQLException {
+		List<Product> listProduct = new ArrayList<>();
+
+		while (rs.next() ) {
+			Product p  = new Product();
+			p.setId(rs.getString( "ID" ) );
+			p.setName( rs.getString( "NAME") );
+			p.setCategory( rs.getString( "CATEGORY" ) );
+			p.setSubCategory_1( rs.getString( "SUB_CATEGORY_1" ) );
+			p.setSubCategory_2( rs.getString( "SUB_CATEGORY_2" ) );
+			p.setPrice( rs.getString( "PRICE" ) );
+
+			listProduct.add( p );
+		}
+
+		return listProduct;
 	}
 }

@@ -129,4 +129,19 @@ public class DatabaseEndPoint {
         return DatabaseService.getInstance().selectAProduct( id );
     }
 
+    /**
+     * Select a given product
+     *
+     * @param name
+     * return
+     */
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path( "/products/search/{name}" )
+    public Product searchByName(@PathParam( "name" ) String name) {
+
+        return DatabaseService.getInstance().selectProductByName( name );
+    }
+
+
 }
