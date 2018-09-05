@@ -219,7 +219,6 @@ public class DatabaseService {
 					p.setSubCategory_1( rs.getString( "SUB_CATEGORY_1" ) );
 					p.setSubCategory_2( rs.getString( "SUB_CATEGORY_2" ) );
 					p.setPrice( rs.getString( "PRICE" ) );
-					p.setCreateDate( rs.getString( "CREATE_DATE" ) );
 
 					productList.add( p );
 				}

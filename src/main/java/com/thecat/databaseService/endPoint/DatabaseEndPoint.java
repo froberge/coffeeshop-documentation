@@ -118,11 +118,10 @@ public class DatabaseEndPoint {
         if (listProduct == null) {
             return Response.status(Response.Status.BAD_REQUEST).entity( "No product Found" ).build();
         } else {
-            Product product = new Product();
-            product.setName( "in the method" );
+            System.out.print( "list product size : " + listProduct.size() );
 
             return Response.ok()
-                    .entity(product)
+                    .entity(listProduct.get(1) )
                     .build();
         }
     }

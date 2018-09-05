@@ -1,5 +1,15 @@
 package com.thecat.databaseService.entities;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+/**
+ * Simple object representing a Product, use as a representation of a DB entry.
+ *
+ * @author froberge
+ * @since September 2018
+ */
+
+@XmlRootElement
 public class Product {
 
 	private String id;
@@ -8,7 +18,6 @@ public class Product {
 	private String subCategory_1;
 	private String subCategory_2;
 	private String price;
-	private String createDate;
 
 	/**
 	 * @return {@link String}
@@ -94,20 +103,6 @@ public class Product {
 		this.price = price;
 	}
 
-	/**
-	 * @return {@link String}
-	 */
-	public String getCreateDate() {
-		return createDate;
-	}
-
-	/**
-	 * @param createDate {@link String}
-	 */
-	public void setCreateDate(String createDate) {
-		this.createDate = createDate;
-	}
-
 	public String toString() {
 
 		StringBuffer sb = new StringBuffer( "Information on the product: \n" );
@@ -118,7 +113,6 @@ public class Product {
 		sb.append("Sub Category 1 [ " + this.subCategory_1 + "]\n");
 		sb.append("Sub Category 2 [ " + this.subCategory_2 + "]\n");
 		sb.append("Price [ " + this.price + "]\n");
-		sb.append("Create Date [ " + this.createDate + "]\n");
 
 		return sb.toString();
 	}
