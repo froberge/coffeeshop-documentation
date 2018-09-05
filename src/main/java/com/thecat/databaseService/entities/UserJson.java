@@ -1,9 +1,5 @@
 package com.thecat.databaseService.entities;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
-
-@XmlRootElement
 public class UserJson {
 
 	private String username;
