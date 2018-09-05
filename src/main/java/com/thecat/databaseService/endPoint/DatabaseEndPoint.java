@@ -138,7 +138,7 @@ public class DatabaseEndPoint {
     @Path( "/products" )
     public List<Product> selectProducts() {
 
-        return listProduct = DatabaseService.getInstance().selectAllProduct();
+        return DatabaseService.getInstance().selectAllProduct();
     }
 
 
