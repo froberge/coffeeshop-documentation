@@ -268,10 +268,10 @@ public class DatabaseService {
 
 			if ( connection != null ) {
 				String query = "SELECT * FROM PRODUCTS\n" +
-						"WHERE UPPER(NAME) LIKE UPPER(% ? %)";
+						"WHERE UPPER(NAME) LIKE UPPER(?)";
 
 				PreparedStatement stmt = connection.prepareStatement(query);
-				stmt.setString(1, name );
+				stmt.setString(1, "%" + name + "%" );
 
 				ResultSet rs = stmt.executeQuery();
 
