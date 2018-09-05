@@ -1,4 +1,4 @@
-package com.thecat.databaseService.entities;
+package com.thecat.clientService.entities;
 
 import java.time.LocalDate;
 import java.time.Period;

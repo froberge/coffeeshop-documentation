@@ -1,13 +1,13 @@
-package com.thecat.databaseService.endPoint;
+package com.thecat.clientService.endPoint;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.thecat.databaseService.entities.Product;
-import com.thecat.databaseService.entities.User;
-import com.thecat.databaseService.entities.UserJson;
-import com.thecat.databaseService.services.impl.DatabaseService;
+import com.thecat.clientService.entities.Product;
+import com.thecat.clientService.entities.User;
+import com.thecat.clientService.entities.UserJson;
+import com.thecat.clientService.services.impl.ClientService;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import java.util.List;
  * @since September 2018
  */
 @Path("/db")
-public class DatabaseEndPoint {
+public class ClientEndPoint {
 
     /**
      * Select a given user from the database, Only the username will be return.
@@ -32,7 +32,7 @@ public class DatabaseEndPoint {
     @Path( "/users/select" )
     public Response selectUser(UserJson user) {
         if (user != null) {
-            User u = DatabaseService.getInstance().selectUser(user.getEmailAdr(), user.getPassword());
+            User u = ClientService.getInstance().selectUser(user.getEmailAdr(), user.getPassword());
 
             if (u == null) {
                 return Response.status(Response.Status.BAD_REQUEST).entity( "Can't find user" ).build();
@@ -64,7 +64,7 @@ public class DatabaseEndPoint {
     public Response registerUser(UserJson user) {
         if (user != null) {
             
-        	boolean b = DatabaseService.getInstance().registerUser(user);
+        	boolean b = ClientService.getInstance().registerUser(user);
 
             if (b ) {
                 return Response.ok().build();
@@ -91,7 +91,7 @@ public class DatabaseEndPoint {
     @Produces({MediaType.APPLICATION_JSON})
     @Path( "/createdb" )
     public Response createDatabase() {
-		boolean b = DatabaseService.getInstance().createDatabase();
+		boolean b = ClientService.getInstance().createDatabase();
 
 		if (b) {
 			return Response.ok().entity( "Database was successfully created" ).build();
@@ -112,7 +112,7 @@ public class DatabaseEndPoint {
     @Path( "/products" )
     public List<Product> selectProducts() {
 
-        return DatabaseService.getInstance().selectAllProduct();
+        return ClientService.getInstance().selectAllProduct();
     }
 
     /**
@@ -126,7 +126,7 @@ public class DatabaseEndPoint {
     @Path( "/products/{id}" )
     public Product selectAProduct(@PathParam( "id" ) String id) {
 
-        return DatabaseService.getInstance().selectAProduct( id );
+        return ClientService.getInstance().selectAProduct( id );
     }
 
     /**
@@ -140,6 +140,6 @@ public class DatabaseEndPoint {
     @Path( "/products/search/{name}" )
     public List<Product> searchByName(@PathParam( "name" ) String name) {
 
-        return DatabaseService.getInstance().selectProductByName( name );
+        return ClientService.getInstance().selectProductByName( name );
     }
 }

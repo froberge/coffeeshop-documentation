@@ -1,20 +1,13 @@
-# Database Service
+# Client Service
 
-This service handle all the database functionnalities
-
-The code was build to run on an postgreSQL database.
-
-Their is to database option with this service.
-
-1. Insert in a Java List
-2. User a PLSQL database
-
-To create the database you can call the createdb endpoint which will load the database using the script found dbscripts/creationScript.sql
-
+This service handle all the interaction with the client.
+The code was made using a POSTGRESQL Database
+The script to create the database can be found in the folder dbscripts.
 This is a maven project so just import in your favorite IDE and it should work.
 
 Should run in a multitude of application server.  Has been tested with:
-* Wildfly 10.1 & 12
-* Openshift Container Platform ( OCP ) using S2I
+* Wildfly 10
+* Openshift Container Platform ( OCP ) using S2I with WildFly
 
 #Here how to [contribute](CONTRIBUTING.md)
+

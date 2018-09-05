@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.thecat.databaseService.services.impl;
+package com.thecat.clientService.services.impl;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -10,9 +10,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.thecat.databaseService.entities.Product;
-import com.thecat.databaseService.entities.User;
-import com.thecat.databaseService.entities.UserJson;
+import com.thecat.clientService.entities.Product;
+import com.thecat.clientService.entities.User;
+import com.thecat.clientService.entities.UserJson;
 
 /**
  * Implement the Database Service
@@ -20,19 +20,19 @@ import com.thecat.databaseService.entities.UserJson;
  * @author froberge
  * @since September, 2018
  */
-public class DatabaseService {
+public class ClientService {
 
-	private static DatabaseService dbService = null;
+	private static ClientService dbService = null;
 	
 	/**
-	 * Private constructor to prevent the creation of the DatabaseService
+	 * Private constructor to prevent the creation of the ClientService
 	 */
-	private DatabaseService(){
+	private ClientService(){
 	}
 	
-	public static DatabaseService getInstance() {
+	public static ClientService getInstance() {
 		if ( dbService == null ) {
-			dbService = new DatabaseService();
+			dbService = new ClientService();
 		}
 
 		return dbService;

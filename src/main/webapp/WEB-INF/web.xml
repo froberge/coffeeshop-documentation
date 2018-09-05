@@ -6,7 +6,7 @@
     <display-name>Database Service</display-name>
     <filter>
         <filter-name>CORS Filter</filter-name>
-        <filter-class>com.thecat.databaseService.filters.CORSFilter</filter-class>
+        <filter-class>com.thecat.clientService.filters.CORSFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>CORS Filter</filter-name>

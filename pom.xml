@@ -3,11 +3,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.thecat</groupId>
-    <artifactId>DatabaseService</artifactId>
+    <artifactId>ClientService</artifactId>
     <packaging>war</packaging>
     <version>0.0.1-SNAPSHOT</version>
-    <name>DatabaseService</name>
-    <description>Service that manage the interaction with the database</description>
+    <name>ClientService</name>
+    <description>Service that manage the interaction with the client</description>
 
     <properties>
         <resteasy.version>3.1.4.Final</resteasy.version>
@@ -33,13 +33,6 @@
             <artifactId>jsr311-api</artifactId>
             <version>1.1.1</version>
         </dependency>
-
-        <dependency>
-            <groupId>com.owlike</groupId>
-            <artifactId>genson</artifactId>
-            <version>0.99</version>
-        </dependency>
-
 		<dependency>
 		    <groupId>javax.servlet</groupId>
 		    <artifactId>javax.servlet-api</artifactId>
@@ -67,6 +60,6 @@
 		        <directory>dbscripts</directory>
 	        </resource>
 	    </resources>
-        <finalName>DatabaseService</finalName>
+        <finalName>ClientService</finalName>
     </build>
 </project>
