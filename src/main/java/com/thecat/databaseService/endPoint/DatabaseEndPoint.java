@@ -126,4 +126,21 @@ public class DatabaseEndPoint {
         }
     }
 
+    /**
+     * Select all the product from the database
+     *
+     * @param {@link UserJson} user
+     * @return {@link UserJson}
+     */
+    @GET
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path( "/products" )
+    public List<Product> selectProducts() {
+
+        return listProduct = DatabaseService.getInstance().selectAllProduct();
+    }
+
+
+
 }
