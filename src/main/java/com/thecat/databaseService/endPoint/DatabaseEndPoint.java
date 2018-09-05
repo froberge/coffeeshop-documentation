@@ -111,7 +111,7 @@ public class DatabaseEndPoint {
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
     @Path( "/products/selectAll" )
-    public Response selectProducts() {
+    public Response selectAllProducts() {
 
         List<Product> listProduct = DatabaseService.getInstance().selectAllProduct();
 
@@ -133,7 +133,6 @@ public class DatabaseEndPoint {
      * @return {@link UserJson}
      */
     @GET
-    @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
     @Path( "/products" )
     public List<Product> selectProducts() {
