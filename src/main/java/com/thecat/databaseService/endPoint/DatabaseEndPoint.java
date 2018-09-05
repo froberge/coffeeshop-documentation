@@ -138,10 +138,8 @@ public class DatabaseEndPoint {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     @Path( "/products/search/{name}" )
-    public Product searchByName(@PathParam( "name" ) String name) {
+    public List<Product> searchByName(@PathParam( "name" ) String name) {
 
         return DatabaseService.getInstance().selectProductByName( name );
     }
-
-
 }
