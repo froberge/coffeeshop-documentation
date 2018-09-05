@@ -40,7 +40,7 @@ public class DatabaseEndPoint {
                 uj.setUsername(u.getName());
 
                 return Response.ok()
-                        .entity(u)
+                        .entity(uj)
                         .build();
             }
         } else {
