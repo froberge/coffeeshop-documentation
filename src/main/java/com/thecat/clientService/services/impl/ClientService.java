@@ -7,10 +7,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.sql.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
-import com.thecat.clientService.entities.Product;
 import com.thecat.clientService.entities.User;
 import com.thecat.clientService.entities.UserJson;
 
@@ -69,15 +66,15 @@ public class ClientService {
 	}
 
 	/**
-	 * Create the database schea needed for the coffee shop user and the product to start with.
+	 * Create the client schema inside the database for the application
 	 * This is a work around to speed things up.
 	 *
 	 * @return boolean
 	 */
-	public boolean createDatabase() {
+	public boolean createSchema() {
 
 		boolean response = false;
-		String scriptFile = "dbscripts/creationScript.sql";
+
 		BufferedReader in = null;
 
 		try {
@@ -85,6 +82,7 @@ public class ClientService {
 
 			if (connection != null) {
 				Statement stmt = connection.createStatement();
+				String scriptFile = "dbscripts/creationScript.sql";
 				in = new BufferedReader(new FileReader( scriptFile ) );
 				String line;
 				StringBuffer sb = new StringBuffer();
@@ -112,7 +110,7 @@ public class ClientService {
 	 * @param password {@link String}
 	 * @return {@link User}
 	 */
-	public User selectUser(String emailAddress, String password) {
+	public User findUser(String emailAddress, String password) {
 		User response = null;
 		
 		try {		
@@ -151,7 +149,7 @@ public class ClientService {
 	 * @param user {@link UserJson}
 	 * @return boolean
 	 */
-	public boolean registerUser(UserJson user) {
+	public boolean insertAUser(UserJson user) {
 		boolean response = false;
 
 		try {
@@ -184,135 +182,5 @@ public class ClientService {
 		}
 
 		return response;
-	}
-
-	/**
-	 * Find all the product.
-	 *
-	 * @return
-	 */
-	public List<Product> selectAllProduct() {
-		List<Product> productList = null;
-
-		try {
-			Connection connection = getDatabaseConnection();
-
-			if ( connection != null ) {
-				String query = "select * from PRODUCTS";
-				PreparedStatement stmt = connection.prepareStatement(query);
-
-				ResultSet rs = stmt.executeQuery();
-
-				if (rs != null ) {
-					productList = parseProductResult( rs );
-				}
-
-				rs.close();
-				connection.close();
-			} else {
-				System.out.println( "no connection" );
-			}
-		} catch (Exception e ) {
-			System.out.println( e );
-		}
-
-		return productList;
-	}
-
-	/**
-	 * Find a given product.
-	 *
-	 * @param id  {@link String}
-	 * @return {@link Product}
-	 */
-	public Product selectAProduct(String id) {
-		Product product = null;
-
-		try {
-			Connection connection = getDatabaseConnection();
-
-			if ( connection != null ) {
-				String query = "select * from PRODUCTS where id = ?";
-				PreparedStatement stmt = connection.prepareStatement(query);
-
-				stmt.setInt(1, Integer.parseInt(id) );
-
-				ResultSet rs = stmt.executeQuery();
-
-				if (rs != null ) {
-					product = parseProductResult( rs ).get(0);
-				}
-
-				rs.close();
-				connection.close();
-			} else {
-				System.out.println( "no connection" );
-			}
-		} catch (Exception e ) {
-			System.out.println( e );
-		}
-
-		return product;
-	}
-
-	/**
-	 * Select Product that contains the given name
-	 * @param name
-	 * @return
-	 */
-	public List<Product> selectProductByName(String name) {
-		List<Product> productList = null;
-
-		try {
-			Connection connection = getDatabaseConnection();
-
-			if ( connection != null ) {
-				String query = "SELECT * FROM PRODUCTS\n" +
-						"WHERE UPPER(NAME) LIKE UPPER(?)";
-
-				PreparedStatement stmt = connection.prepareStatement(query);
-				stmt.setString(1, "%" + name + "%" );
-
-				ResultSet rs = stmt.executeQuery();
-
-				if (rs != null ) {
-					productList = parseProductResult( rs );
-				}
-
-				rs.close();
-				connection.close();
-			} else {
-				System.out.println( "no connection" );
-			}
-		} catch (Exception e ) {
-			System.out.println( e );
-		}
-
-		return productList;
-	}
-
-	/**
-	 * Parse the result from the database query.
-	 *
-	 * @param rs
-	 * @return
-	 * @throws SQLException
-	 */
-	private List<Product> parseProductResult(ResultSet rs) throws SQLException {
-		List<Product> listProduct = new ArrayList<>();
-
-		while (rs.next() ) {
-			Product p  = new Product();
-			p.setId(rs.getString( "ID" ) );
-			p.setName( rs.getString( "NAME") );
-			p.setCategory( rs.getString( "CATEGORY" ) );
-			p.setSubCategory_1( rs.getString( "SUB_CATEGORY_1" ) );
-			p.setSubCategory_2( rs.getString( "SUB_CATEGORY_2" ) );
-			p.setPrice( rs.getString( "PRICE" ) );
-
-			listProduct.add( p );
-		}
-
-		return listProduct;
 	}
 }

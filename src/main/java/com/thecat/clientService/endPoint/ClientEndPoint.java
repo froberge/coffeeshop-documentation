@@ -4,12 +4,10 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.thecat.clientService.entities.Product;
 import com.thecat.clientService.entities.User;
 import com.thecat.clientService.entities.UserJson;
 import com.thecat.clientService.services.impl.ClientService;
 
-import java.util.List;
 
 /**
  * API use to manage interaction with the database
@@ -17,7 +15,7 @@ import java.util.List;
  * @author froberge
  * @since September 2018
  */
-@Path("/db")
+@Path("/clients")
 public class ClientEndPoint {
 
     /**
@@ -29,10 +27,10 @@ public class ClientEndPoint {
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    @Path( "/users/select" )
+    @Path( "/select" )
     public Response selectUser(UserJson user) {
         if (user != null) {
-            User u = ClientService.getInstance().selectUser(user.getEmailAdr(), user.getPassword());
+            User u = ClientService.getInstance().findUser( user.getEmailAdr(), user.getPassword() );
 
             if (u == null) {
                 return Response.status(Response.Status.BAD_REQUEST).entity( "Can't find user" ).build();
@@ -60,11 +58,11 @@ public class ClientEndPoint {
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    @Path( "/users/register" )
+    @Path( "/create" )
     public Response registerUser(UserJson user) {
         if (user != null) {
             
-        	boolean b = ClientService.getInstance().registerUser(user);
+        	boolean b = ClientService.getInstance().insertAUser( user );
 
             if (b ) {
                 return Response.ok().build();
@@ -86,12 +84,11 @@ public class ClientEndPoint {
      * @param {@link UserJson} user
      * @return
      */
-    @POST
-    @Consumes({MediaType.APPLICATION_JSON})
+    @GET
     @Produces({MediaType.APPLICATION_JSON})
-    @Path( "/createdb" )
-    public Response createDatabase() {
-		boolean b = ClientService.getInstance().createDatabase();
+    @Path( "/createSchema" )
+    public Response createSchema() {
+		boolean b = ClientService.getInstance().createSchema();
 
 		if (b) {
 			return Response.ok().entity( "Database was successfully created" ).build();
@@ -100,46 +97,5 @@ public class ClientEndPoint {
 					.entity("Could not create database")
 					.build();
 		}
-    }
-
-    /**
-     * Select all the product from the database
-     *
-     * @return
-     */
-    @GET
-    @Produces({MediaType.APPLICATION_JSON})
-    @Path( "/products" )
-    public List<Product> selectProducts() {
-
-        return ClientService.getInstance().selectAllProduct();
-    }
-
-    /**
-     * Select a given product
-     *
-     * @param id
-     * return
-     */
-    @GET
-    @Produces({MediaType.APPLICATION_JSON})
-    @Path( "/products/{id}" )
-    public Product selectAProduct(@PathParam( "id" ) String id) {
-
-        return ClientService.getInstance().selectAProduct( id );
-    }
-
-    /**
-     * Select a given product
-     *
-     * @param name
-     * return
-     */
-    @GET
-    @Produces({MediaType.APPLICATION_JSON})
-    @Path( "/products/search/{name}" )
-    public List<Product> searchByName(@PathParam( "name" ) String name) {
-
-        return ClientService.getInstance().selectProductByName( name );
     }
 }
