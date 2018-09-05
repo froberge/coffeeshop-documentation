@@ -40,7 +40,7 @@ public class DatabaseEndPoint {
                 uj.setUsername(u.getName());
 
                 return Response.ok()
-                        .entity(uj)
+                        .entity(u)
                         .build();
             }
         } else {
@@ -118,11 +118,11 @@ public class DatabaseEndPoint {
         if (listProduct == null) {
             return Response.status(Response.Status.BAD_REQUEST).entity( "No product Found" ).build();
         } else {
-            UserJson uj = new UserJson();
-            uj.setUsername( "in the method" );
+            Product product = new Product();
+            product.setName( "in the method" );
 
             return Response.ok()
-                    .entity(uj)
+                    .entity(product)
                     .build();
         }
     }
