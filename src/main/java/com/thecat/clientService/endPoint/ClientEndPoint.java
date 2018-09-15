@@ -15,7 +15,7 @@ import com.thecat.clientService.services.impl.ClientService;
  * @author froberge
  * @since September 2018
  */
-@Path("/clients")
+@Path("/client")
 public class ClientEndPoint {
 
     /**

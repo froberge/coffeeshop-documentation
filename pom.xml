@@ -3,10 +3,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.thecat</groupId>
-    <artifactId>ClientService</artifactId>
+    <artifactId>clientService</artifactId>
     <packaging>war</packaging>
     <version>0.0.1-SNAPSHOT</version>
-    <name>ClientService</name>
+    <name>clientService</name>
     <description>Service that manage the interaction with the client</description>
 
     <properties>
