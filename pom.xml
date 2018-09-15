@@ -58,6 +58,6 @@
 		        <directory>dbscripts</directory>
 	        </resource>
 	    </resources>
-        <finalName>ClientService</finalName>
+        <finalName>clientService</finalName>
     </build>
 </project>
