@@ -13,15 +13,15 @@ CREATE TABLE cs_user."user"(
   NAME VARCHAR(100)       NOT NULL,
   GENDER VARCHAR(6)       NOT NULL,
   BIRTHDATE  DATE,
-  EMAILADR  VARCHAR(100)  NOT NULL,
+  EMAIL  VARCHAR(100)  NOT NULL,
   PASSWORD  VARCHAR(20)   NOT NULL,
   CREATE_DATE DATE,
   PRIMARY KEY (ID)
 );
 
-INSERT INTO cs_user."user" (ID, NAME, GENDER, BIRTHDATE, EMAILADR, PASSWORD, CREATE_DATE) VALUES
+INSERT INTO cs_user."user" (ID, NAME, GENDER, BIRTHDATE, EMAIL, PASSWORD, CREATE_DATE) VALUES
   (nextval('cs_user.user_seq'), 'System Admin','Male', current_timestamp, 'admin@coffeeshop.com', 'pwd001',current_timestamp );
-INSERT INTO cs_user."user" (ID, NAME, GENDER, BIRTHDATE, EMAILADR, PASSWORD, CREATE_DATE) VALUES
+INSERT INTO cs_user."user" (ID, NAME, GENDER, BIRTHDATE, EMAIL, PASSWORD, CREATE_DATE) VALUES
   (nextval('cs_user.user_seq'), 'Default user','Male', current_timestamp, 'default@coffeeshop.com', 'default123',current_timestamp );
 
 SET default_tablespace = '';
