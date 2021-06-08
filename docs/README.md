@@ -1,10 +1,8 @@
 # CoffeeShop Documenation
 
-This repository contains all the information realated to the Coffee Shop app such as:
+This repository contains all the documentation for the microservice application CoffeShop. Follow the hyper link to find the desired documentation per categories.
 
-* [Documentation](docs)
 *  Architecture diagram
-* [Database Script](dbsriptts)
-* How to [contribute](CONTRIBUTING.md) to the project
+* [Database Script](dbsripts)
 
 
