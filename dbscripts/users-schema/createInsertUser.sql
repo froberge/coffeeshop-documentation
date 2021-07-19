@@ -23,6 +23,9 @@ INSERT INTO cs_user."user" (ID, NAME, GENDER, BIRTHDATE, EMAIL, PASSWORD, CREATE
   (nextval('cs_user.user_seq'), 'System Admin','Male', current_timestamp, 'admin@coffeeshop.com', 'pwd001',current_timestamp );
 INSERT INTO cs_user."user" (ID, NAME, GENDER, BIRTHDATE, EMAIL, PASSWORD, CREATE_DATE) VALUES
   (nextval('cs_user.user_seq'), 'Default user','Male', current_timestamp, 'default@coffeeshop.com', 'default123',current_timestamp );
+INSERT INTO cs_user."user" (ID, NAME, GENDER, BIRTHDATE, EMAIL, PASSWORD, CREATE_DATE) VALUES
+(nextval('cs_user.user_seq'), 'alias user','Male', current_timestamp, 'd@coffeeshop.com', 'default123',current_timestamp );
+
 
 SET default_tablespace = '';
 SET client_encoding = 'UTF8';
